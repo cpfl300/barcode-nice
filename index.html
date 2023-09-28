@@ -2,6 +2,7 @@
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title> barcode - E.S. </title>
 	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/barcodes/JsBarcode.code128.min.js"></script>
 	<script>
@@ -13,27 +14,43 @@
 			const hiddenNum = document.getElementById('barcodeHidden').value;
 			generate(oriStr.replace('**', hiddenNum));
 		}
+
+		function downloadImage() {
+			const image = document.getElementById('barcodeImage');
+			const url = image.src;
+			const link = document.createElement('a');
+			link.href = url;
+			link.download = 'Download.jpg';
+			link.click();
+		}
 	</script>
 	<style>
 		.form-control, button {
 			height: 35px;
 			width: 200px;
 		}
+		.wrapper {
+			padding: 50px;
+		}
 	</style>
 </head>
 <body>
-	<h2> 바코드 생성 </h2>
-	<p>별표가 포함된 바코드 숫자</p>
-	<input class="form-control" id="barcodeStr" type="text" placeholder="Z2423319**2100802" />
-	<br />
-	<p>별표대신 들어갈 숫자</p>
-	<input class="form-control" id="barcodeHidden" type="text" placeholder="06" />
+	<div class="wrapper">
+		<h2> 바코드 생성 </h2>
+		<p>별표가 포함된 바코드 숫자</p>
+		<input class="form-control" id="barcodeStr" type="text" placeholder="Z2423319**2100802" />
+		<br />
+		<p>별표대신 들어갈 숫자</p>
+		<input class="form-control" id="barcodeHidden" type="text" placeholder="06" />
 
-	<br/><br/>
-	<button type="button" onclick=createNum()>생성하기!</button>
+		<br/><br/>
+		<button type="button" onclick=createNum()>생성하기!</button>
 
-	<div>
-		<img id="barcodeImage"/>
+		<div>
+			<a download>
+				<img id="barcodeImage" onclick="downloadImage()"/>
+			</a>
+		</div>
 	</div>
 </body>
 </html>
